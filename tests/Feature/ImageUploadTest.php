@@ -12,10 +12,7 @@ test('authenticated user can access images index page', function () {
     $user = User::factory()->create();
 
     $response = $this->actingAs($user)->get('/images');
-
-    // In test environment, we just check the status since Vite assets are not built
-    $response->assertStatus(500); // Expected due to missing Vite manifest in test
-    // In real environment with built assets, this would be 200
+    $response->assertStatus(200);
 });
 
 test('guest cannot access images page', function () {
