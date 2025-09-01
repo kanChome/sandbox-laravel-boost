@@ -68,19 +68,17 @@ export default function ImageIndex({ images }: Props) {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="画像アップロード" />
-            
+
             <div className="space-y-6 p-6">
                 <div>
                     <h1 className="text-3xl font-bold">画像アップロード</h1>
-                    <p className="text-muted-foreground mt-2">
-                        JPEG、PNG、JPG、GIF、WEBP形式の画像をアップロードできます（最大2MB）
-                    </p>
+                    <p className="mt-2 text-muted-foreground">JPEG、PNG、JPG、GIF、WEBP形式の画像をアップロードできます（最大2MB）</p>
                 </div>
 
                 {/* Upload Form */}
-                <div className="border rounded-lg p-6 bg-card">
-                    <h2 className="text-xl font-semibold mb-4">新しい画像をアップロード</h2>
-                    
+                <div className="rounded-lg border bg-card p-6">
+                    <h2 className="mb-4 text-xl font-semibold">新しい画像をアップロード</h2>
+
                     <div className="space-y-4">
                         <div>
                             <input
@@ -88,27 +86,17 @@ export default function ImageIndex({ images }: Props) {
                                 type="file"
                                 accept="image/jpeg,image/png,image/jpg,image/gif,image/webp"
                                 onChange={handleFileSelect}
-                                className="block w-full text-sm text-muted-foreground
-                                    file:mr-4 file:py-2 file:px-4
-                                    file:rounded-md file:border-0
-                                    file:text-sm file:font-medium
-                                    file:bg-primary file:text-primary-foreground
-                                    hover:file:bg-primary/90
-                                    file:cursor-pointer cursor-pointer"
+                                className="block w-full cursor-pointer text-sm text-muted-foreground file:mr-4 file:cursor-pointer file:rounded-md file:border-0 file:bg-primary file:px-4 file:py-2 file:text-sm file:font-medium file:text-primary-foreground hover:file:bg-primary/90"
                             />
                         </div>
-                        
+
                         {selectedFile && (
                             <div className="text-sm text-muted-foreground">
                                 選択されたファイル: {selectedFile.name} ({formatFileSize(selectedFile.size)})
                             </div>
                         )}
-                        
-                        <Button
-                            onClick={handleUpload}
-                            disabled={!selectedFile || uploading}
-                            className="w-full sm:w-auto"
-                        >
+
+                        <Button onClick={handleUpload} disabled={!selectedFile || uploading} className="w-full sm:w-auto">
                             {uploading ? 'アップロード中...' : 'アップロード'}
                         </Button>
                     </div>
@@ -116,30 +104,28 @@ export default function ImageIndex({ images }: Props) {
 
                 {/* Images Grid */}
                 <div>
-                    <h2 className="text-xl font-semibold mb-4">アップロード済み画像</h2>
-                    
+                    <h2 className="mb-4 text-xl font-semibold">アップロード済み画像</h2>
+
                     {images.length === 0 ? (
-                        <div className="text-center py-12 border rounded-lg bg-muted/50">
+                        <div className="rounded-lg border bg-muted/50 py-12 text-center">
                             <p className="text-muted-foreground">アップロードされた画像はありません</p>
                         </div>
                     ) : (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                             {images.map((image) => (
-                                <div key={image.path} className="border rounded-lg overflow-hidden bg-card">
+                                <div key={image.path} className="overflow-hidden rounded-lg border bg-card">
                                     <div className="aspect-square overflow-hidden">
                                         <img
                                             src={image.url}
                                             alt={image.name}
-                                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-200"
+                                            className="h-full w-full object-cover transition-transform duration-200 hover:scale-105"
                                         />
                                     </div>
                                     <div className="p-3">
-                                        <p className="text-sm font-medium truncate" title={image.name}>
+                                        <p className="truncate text-sm font-medium" title={image.name}>
                                             {image.name}
                                         </p>
-                                        <p className="text-xs text-muted-foreground mt-1">
-                                            {formatFileSize(image.size)}
-                                        </p>
+                                        <p className="mt-1 text-xs text-muted-foreground">{formatFileSize(image.size)}</p>
                                     </div>
                                 </div>
                             ))}
