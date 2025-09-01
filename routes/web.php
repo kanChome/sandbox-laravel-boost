@@ -16,5 +16,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('images', [App\Http\Controllers\ImageUploadController::class, 'store'])->name('images.store');
 });
 
+Route::get('/tetris', function () {
+    return Inertia::render('tetris');
+})->name('tetris');
+
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
